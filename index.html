@@ -1,0 +1,141 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Jekyll v4.1.1">
+  <title>Meramal Jumlah Penduduk Indonesia</title>
+  <link rel="canonical" href="">
+  <!-- Bootstrap core CSS -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    body {
+      background-image: url("assets/img/padat.jpeg");
+    }
+
+    div.transbox {
+      margin: 1px;
+      background-color: #ffffff;
+      opacity: 0.9;
+    }
+
+    div.tra {
+      margin: 5%;
+      color: #000000;
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link href="assets/style.css" rel="stylesheet">
+  <!-- CSS Bootstrap Datepicker -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+  <!-- Javascript Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js">
+  </script>
+  <!-- Javascript Bootstrap Datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js">
+  </script>
+</head>
+
+<body class="text-center">
+  <form class="form-signin">
+    <div class="transbox">
+      <div class="card-body tra">
+        <h1 class="h3 mb-3 font-weight-normal">Ramal Jumlah Penduduk Indonesia</h1>
+        <label for="inputEmail" class="sr-only">Jumlah Penduduk Indonesia saat ini</label>
+        <input type="text" id="jumlahAwal" class="form-control" placeholder="Masukkan Nominal Angka" required
+          autofocus>
+        <label for="inputEmail" class="sr-only">Laju Pertumbuhan Penduduk (%)</label>
+        <input type="text" id="lajuPenduduk" class="form-control" placeholder="Isi dalam %" required autofocus>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label for="exampleInputEmail1">Tahun Sekarang</label>
+              <div id="tahunSekarang" class="date">
+              <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control datetimepicker1" placeholder="Isi Dalam Tahun" required autofocus>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Tahun Dicari</label>
+              <div id="tahunCari" class="date">
+                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control datetimepicker1" placeholder="Isi Dalam Tahun" required autofocus>
+                </div>
+            </div>
+          </div>
+          <label for="exampleInputEmail1">(*)Yang Dihitung hanya Berdasarkan Tahun saja</label>
+        </div>
+
+        <!-- /.card-body -->
+        <div class="card-footer">
+        
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Hitung</button>
+          <div id="result"></div>
+          <br>
+          <button class="btn btn-lg btn-warning btn-block text-light" id="next">Selanjutnya</button>
+          <p class="mt-5 mb-3 text-muted"><b>© 2023</b></p>
+        </div>
+      </div>
+  </form>
+  <script type="text/javascript">
+		
+		var rupiah = document.getElementById('jumlahAwal');
+		rupiah.addEventListener('keyup', function(e){
+			// tambahkan 'Rp.' pada saat form di ketik
+			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+			rupiah.value = formatRupiah(this.value, '');
+		});
+ 
+		/* Fungsi formatRupiah */
+		function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+ 
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+		}
+	</script>
+  <script type="text/javascript">
+    $('.datetimepicker1').datepicker( {
+    format: " yyyy",
+    viewMode: "years", 
+    minViewMode: "years"
+});
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>
